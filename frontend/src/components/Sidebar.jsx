@@ -17,6 +17,7 @@ export default function Sidebar({children}) {
         .then(res => {
           setRoleName(res.data.role_name);
           localStorage.setItem("role_name", res.data.role_name);
+          setUserType(res.data.user_type)
         })
         .catch(() => setRoleName(""));
     }
@@ -25,12 +26,8 @@ export default function Sidebar({children}) {
   const can = (method) => {
     return menu.some(m => m.method === method);
   };
-  console.log(roleName);
-  console.log(menu);
-  console.log(userType);
-
+  
   const isSuperAdmin = roleName === "Super Admin";
-
   return (
     <div className="min-h-screen flex bg-slate-100">
       
@@ -52,7 +49,7 @@ export default function Sidebar({children}) {
               </a>
             </li>
           )}
-          {can("getAllUsers") || (userType==1) && (
+          {(can("getAllUsers") || (userType==='1')) && (
             <li>
               <a href="/users" className="block px-3 py-2 rounded hover:bg-slate-100">
                 Users
@@ -64,7 +61,7 @@ export default function Sidebar({children}) {
               Roles
             </a>
           </li>
-          {(userType==1) && (
+          {(isSuperAdmin && userType==='1') && (
             <li>
               <a href="/permissions" className="block px-3 py-2 rounded hover:bg-slate-100">
                 Permissions

@@ -81,7 +81,6 @@ const deleteRole = async (req, res) => {
 const assignPermissions = async (req, res) => {
   try {
     const { role_id, permissions } = req.body;
-    console.log(req.body)
     const role = await Role.findByPk(role_id);
     if (!role) {
       return res.status(404).json({ msg: "Role not found" });
