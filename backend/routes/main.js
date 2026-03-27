@@ -14,6 +14,7 @@ router.get("/:role_id", async (req, res) => {
     where: { id: ids }
   });
 
+  
   res.json(menu);
 });
 

@@ -10,6 +10,7 @@ const getAllRoles = async (req, res) => {
   }
 };
 
+
 // Get role by ID with permissions
 const getRoleById = async (req, res) => {
   try {
@@ -79,8 +80,8 @@ const deleteRole = async (req, res) => {
 // Assign permissions to role
 const assignPermissions = async (req, res) => {
   try {
-    const { role_id, permission_ids } = req.body;
-
+    const { role_id, permissions } = req.body;
+    console.log(req.body)
     const role = await Role.findByPk(role_id);
     if (!role) {
       return res.status(404).json({ msg: "Role not found" });
@@ -90,7 +91,7 @@ const assignPermissions = async (req, res) => {
     await RolePermission.destroy({ where: { role_id } });
 
     // Add new permissions
-    const rolePermissions = permission_ids.map((permission_id) => ({
+    const rolePermissions = permissions.map((permission_id) => ({
       role_id,
       permission_id,
       status: true

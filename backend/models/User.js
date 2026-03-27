@@ -4,7 +4,8 @@ import sequelize from "../config/db.js";
 const User = sequelize.define("users", {
   email: DataTypes.STRING,
   password: DataTypes.STRING,
-  role_id: DataTypes.INTEGER
+  role_id: DataTypes.INTEGER,
+  user_type: DataTypes.INTEGER
 });
 
 export default User;

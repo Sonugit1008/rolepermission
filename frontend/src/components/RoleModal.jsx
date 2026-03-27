@@ -45,7 +45,7 @@ export default function RoleModal({ roleId, onSaved, onClose }) {
   };
 
   const save = async () => {
-    await axios.post("/roles/assign", {
+    await axios.post("/roles/assign-permissions", {
       role_id: roleId,
       permissions: selected
     });

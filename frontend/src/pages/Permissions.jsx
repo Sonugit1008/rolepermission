@@ -15,6 +15,7 @@ export default function Permissions() {
     const res = await axios.get("/permissions/controllers");
     setControllers(res.data);
   };
+  console.log(controllers);
 
   // Load Permissions
   const loadPermissions = async (controller = "") => {

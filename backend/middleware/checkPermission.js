@@ -1,6 +1,6 @@
 import { Role, Permission, RolePermission } from "../models/index.js";
 
-const authorize = (controller, method) => {
+const checkPermission = (controller, method) => {
   return async (req, res, next) => {
     const role = await Role.findByPk(req.user.role_id);
     // ✅ Super Admin
@@ -25,4 +25,4 @@ const authorize = (controller, method) => {
   };
 };
 
-export default authorize;
+export default checkPermission;

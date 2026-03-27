@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "../api/axios";
-import { getRole, getRoleName } from "../auth/auth";
+import { getRole, getRoleName,getUserType } from "../auth/auth";
 
 export default function Sidebar({children}) {
   const [menu, setMenu] = useState([]);
   const [roleName, setRoleName] = useState(getRoleName() || "");
+  const [userType, setUserType] = useState(getUserType() || "");
+
 
   useEffect(() => {
     axios.get(`/menu/${getRole()}`)
@@ -23,6 +25,9 @@ export default function Sidebar({children}) {
   const can = (method) => {
     return menu.some(m => m.method === method);
   };
+  console.log(roleName);
+  console.log(menu);
+  console.log(userType);
 
   const isSuperAdmin = roleName === "Super Admin";
 
@@ -40,14 +45,14 @@ export default function Sidebar({children}) {
               </a>
             </li>
           )}
-          {can("order_list") && (
+          {can("getAllData") && (
             <li>
               <a href="/orders" className="block px-3 py-2 rounded hover:bg-slate-100">
                 Orders
               </a>
             </li>
           )}
-          {can("user_list") && (
+          {can("getAllUsers") || (userType==1) && (
             <li>
               <a href="/users" className="block px-3 py-2 rounded hover:bg-slate-100">
                 Users
@@ -59,7 +64,7 @@ export default function Sidebar({children}) {
               Roles
             </a>
           </li>
-          {isSuperAdmin && (
+          {(userType==1) && (
             <li>
               <a href="/permissions" className="block px-3 py-2 rounded hover:bg-slate-100">
                 Permissions
