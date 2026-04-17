@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/roles",auth, roleRoutes);
-app.use("/api/permissions",isAdmin,permissionRoutes);
+app.use("/api/permissions",permissionRoutes);
 app.use("/api/users",auth, userRoutes);
 app.use("/api/orders",auth, orderRoutes);
 app.use("/api/menu",auth, menuRoutes);

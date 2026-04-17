@@ -9,14 +9,14 @@ export default function RoleModal({ roleId, onSaved, onClose }) {
     const res = await axios.get("/permissions");
     setPermissions(res.data);
   };
+
+  const loadRole = async () => {
+    const res = await axios.get(`/roles/${roleId}`);
+    const ids = res.data.permissions ? res.data.permissions.map(p => p.id) : [];
+    setSelected(ids);
+  };
   
   useEffect(() => {
-    const loadRole = async () => {
-      const res = await axios.get(`/roles/${roleId}`);
-      const ids = res.data.permissions ? res.data.permissions.map(p => p.id) : [];
-      setSelected(ids);
-    };
-
     loadPermissions();
     loadRole();
   }, [roleId]);
